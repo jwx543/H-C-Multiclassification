@@ -1,10 +1,12 @@
 import os
-os.environ["KMP_DUPLICATE_LIB_OK"] = "TRUE"
 
 import torch
 from torch.autograd import Variable
 import torch.nn.functional as F
 import matplotlib.pyplot as plt
+
+
+os.environ["KMP_DUPLICATE_LIB_OK"] = "TRUE"
 
 
 n_data = torch.ones(100, 2)
@@ -48,6 +50,6 @@ for t in range(100):
     optimizer.step()
 
     if t % 5 == 0:
-        print(loss)
+        print(loss.item())
 
 
