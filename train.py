@@ -48,6 +48,7 @@ def train_data(train, test):
             msg = 'Train Loss: {0:>5.2},  Train Acc: {1:>6.2%},  Val Loss: {2:>5.2},  Val Acc: {3:>6.2%}'
             print(msg.format(loss.item(), train_acc, dev_loss, dev_acc))
             net.train()
+    torch.save(net, './save/net.pkl')
 
 
 def evaluate(net, test):
