@@ -13,7 +13,8 @@ class Net(torch.nn.Module):
         self.predict = torch.nn.Linear(n_hidden1, n_output)
 
     def forward(self, x):
-        x = F.softmax(self.hidden1(x), dim=1)
+        x = self.hidden1(x)
+        # x = F.softmax(self.hidden1(x), dim=1)
         x = self.hidden2(x)
         x = self.hidden3(x)
         x = self.predict(x)
@@ -21,7 +22,7 @@ class Net(torch.nn.Module):
 
 
 def train_data(train, test):
-    net = Net(len(train[0][0]), 128, 32, 5)
+    net = Net(len(train[0][0]), 16, 8, 5)
     # 优化器与梯度裁剪
     param_optimizer = list(net.named_parameters())
     no_decay = ['bias', 'LayerNorm.bias', 'LayerNorm.weight']
@@ -29,8 +30,7 @@ def train_data(train, test):
     optimizer_grouped_parameters = [
         {'params': [p for n, p in param_optimizer if not any(nd in n for nd in no_decay)], 'weight_decay': 0.01},
         {'params': [p for n, p in param_optimizer if any(nd in n for nd in no_decay)], 'weight_decay': 0.0}]
-    optimizer = torch.optim.Adam(optimizer_grouped_parameters, lr=0.1)
-    # optimizer = torch.optim.SGD(net.parameters(), lr=0.1)
+    optimizer = torch.optim.Adam(optimizer_grouped_parameters, lr=0.001)
     loss_func = torch.nn.CrossEntropyLoss()
 
     for t in range(5000):
@@ -42,7 +42,7 @@ def train_data(train, test):
         loss.backward()
         optimizer.step()
 
-        if t % 10 == 0:
+        if t % 1 == 0:
             train_acc = metrics.accuracy_score(train[1], torch.max(outputs.data, 1)[1])
             dev_acc, dev_loss = evaluate(net, test)
             msg = 'Train Loss: {0:>5.2},  Train Acc: {1:>6.2%},  Val Loss: {2:>5.2},  Val Acc: {3:>6.2%}'

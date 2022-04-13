@@ -12,7 +12,7 @@ from sklearn.model_selection import train_test_split
 
 X_train, X_test, y_train, y_test = train_test_split(X,
                                                     y,
-                                                    test_size=0.2,
+                                                    test_size=0.3,
                                                     random_state=0)
 
 # 特征缩放，通常没必要
@@ -25,7 +25,7 @@ X_test = sc.transform(X_test)
 
 from sklearn.ensemble import RandomForestClassifier
 
-classifier = RandomForestClassifier(n_estimators=200, random_state=0)
+classifier = RandomForestClassifier(n_estimators=100, random_state=0)
 classifier.fit(X_train, y_train)
 y_pred = classifier.predict(X_test)
 

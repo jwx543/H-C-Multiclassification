@@ -59,12 +59,6 @@ export default {
     methods: {
         onSubmit() {
             this.str2int()
-            // let params = new URLSearchParams()
-            // params.append('position', this.form.position)
-            // params.append('nums', this.form.numint)
-            // params.append('bagcol', this.form.bcgint)
-            // params.append('fontcol', this.form.fontint)
-            // params.append('hposition', this.form.horzpos)
 
             let jdata = {
                 'position': this.form.position,
@@ -81,20 +75,28 @@ export default {
         str2int(){
             this.form.numint = parseInt(this.form.num)
 
-            if(this.form.bcgcolors === '白色'){
+            if(this.form.bcgcolors === '白色' || this.form.bcgcolors === '粉色'){
                 this.form.bcgint = 0
-            }else if(this.form.bcgcolors === '黑色'){
+            }else if(this.form.bcgcolors === '黑色' || this.form.bcgcolors === '棕色'){
                 this.form.bcgint = 1
-            }else{
+            }else if(this.form.bcgcolors === '蓝色'){
                 this.form.bcgint = 2
+            }else if(this.form.bcgcolors === '灰色'){
+                this.form.bcgint = 3
+            }else{
+                this.form.bcgint = 4
             }
 
-            if(this.form.fontcolors === '白色'){
+            if(this.form.fontcolors === '白色' || this.form.fontcolors === '粉色'){
                 this.form.fontint = 0
-            }else if(this.form.fontcolors === '黑色'){
+            }else if(this.form.fontcolors === '黑色' || this.form.fontcolors === '棕色'){
                 this.form.fontint = 1
-            }else{
+            }else if(this.form.fontcolors === '蓝色'){
                 this.form.fontint = 2
+            }else if(this.form.fontcolors === '灰色'){
+                this.form.fontint = 3
+            }else{
+                this.form.fontint = 4
             }
 
         }
